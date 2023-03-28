@@ -1,11 +1,11 @@
-const axios = require("axios");
+import axios from "axios"; //axios projeye dahil edildi
 
-async function getData() {
-  let id = 1;
+async function getData(id) {
+  // parametre kullanılarak "id" değeri alındı
   try {
     const response = await axios.get(
       `https://jsonplaceholder.typicode.com/users/${id}`
-    );
+    ); // veriler API üzerinden çekildi
     const userData = response.data;
 
     const responsePosts = await axios.get(
@@ -13,10 +13,10 @@ async function getData() {
     );
     const postData = responsePosts.data;
 
-    let newData = Object.assign(userData, { posts: postData });
+    let newData = Object.assign(userData, { posts: postData }); // iki farklı veri aynı obje içerisine yerleştirildi
     console.log(newData);
   } catch (error) {
     console.error(error);
   }
 }
-getData();
+getData(1);
