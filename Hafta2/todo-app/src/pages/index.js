@@ -112,7 +112,32 @@ function Home() {
                     checked={todo.completed}
                     onChange={() => handleToggleTodo(todo.id)}
                   />
-                  <label>{todo.text}</label>
+                  <label>
+                    <input
+                      className="editable"
+                      value={todo.text}
+                      // todo öğesinin text değeri değiştiğinde çalışacak fonksiyon.
+                      onChange={(e) => {
+                        setTodos(
+                          todos.map((t) => {
+                            if (t.id === todo.id) {
+                              return {
+                                ...t,
+                                text: e.target.value,
+                              };
+                            }
+                            return t;
+                          })
+                        );
+                      }}
+                      // todo öğesinin text değeri boş bırakıldığında çalışacak fonksiyon.
+                      onBlur={(e) => {
+                        if (!e.target.value) {
+                          handleDeleteTodo(todo.id);
+                        }
+                      }}
+                    />
+                  </label>
                   <button
                     className="destroy"
                     onClick={() => handleDeleteTodo(todo.id)}
